@@ -1,0 +1,50 @@
+import { NextFunction, Response } from 'express'
+import { responseBuilder } from '../helpers/response_builder'
+import log from '../logger'
+import {IServiceResponse, IUser} from '../models'
+import * as authService from '../services/mentor_auth'
+import * as postService from '../services/post'
+import {userDataMapping} from "../helpers/data_mapping/user";
+const TAG = 'services.auth'
+
+export async function signupUser (req: any, res: Response, next: NextFunction): Promise<void> {
+    try {
+      log.info(`${TAG}.signupUser()`);
+      log.debug(`${TAG}.signupUser() Object = ${JSON.stringify(req.body)}`)
+      const user: IUser = userDataMapping(req.body);
+      const authResponse: IServiceResponse = await authService.signupUser(user)
+      responseBuilder(authResponse, res, next, req)
+    } catch (error) {
+      log.error(`ERROR occurred in ${TAG}.signupUser() `, error)
+      next(error)
+    }
+  }
+
+  export async function postgres (req: any, res: Response, next: NextFunction): Promise<void> {
+    try {
+      log.info(`${TAG}.signupUser()`);
+      log.debug(`${TAG}.signupUser() Object = ${JSON.stringify(req.body)}`)
+      const user = req.body
+      console.log(user)
+      const authResponse: IServiceResponse = await postService.postgress(user)
+      responseBuilder(authResponse, res, next, req)
+    } catch (error) {
+      log.error(`ERROR occurred in ${TAG}.signupUser() `, error)
+      next(error)
+    }
+  }
+
+
+  // export async function videoUplaodUser (req: any, res: Response, next: NextFunction): Promise<void> {
+  //   try {
+  //     log.info(`${TAG}.videoUplaodUser()`);
+  //     log.debug(`${TAG}.videoUplaodUser() Object = ${JSON.stringify(req.body)}`)
+  //     const user=req.body;
+  //     const video = req.file.location;
+  //     const authResponse: IServiceResponse = await authService.uplaodUser({user,video})
+  //     responseBuilder(authResponse, res, next, req)
+  //   } catch (error) {
+  //     log.error(`ERROR occurred in ${TAG}.videoUplaodUser() `, error)
+  //     next(error)
+  //   }
+  // }
