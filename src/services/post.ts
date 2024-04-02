@@ -39,9 +39,10 @@ export async function signupUser(user: IUser) {
     return serviceResponse;
   }
 
-  export async function postgress(user) {
+  export async function postgress(user:any) {
     log.info(`${TAG}.signupUser() ==> `, user);
-      
+      console.log("ssssssssssssssssssssssssssss")
+      console.log(user)
     const serviceResponse: IServiceResponse = new ServiceResponse(HttpStatusCodes.CREATED, '', false);
     try {
    console.log(user)

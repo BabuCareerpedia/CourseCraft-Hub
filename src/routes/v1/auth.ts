@@ -19,6 +19,9 @@ const router = Router()
 
      router.route('/postgress')
      .post(controller.postgres);
+
+   //   router.route('/postgress')
+   //   .get(controller.getPostgress)
      
 
 export default router

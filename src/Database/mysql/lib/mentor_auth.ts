@@ -67,16 +67,14 @@ export async function checkEmailExist(email: string) {
 
 
 
-  export async function postgres(user) {
+  export async function postgres(user:any) {
     logger.info(`${TAG}.saveUser()`);
     try {
-      let mentorInsertQuery = `insert into USERS (name, email, password)
-      values(:name, :email, :password)`;
+      let mentorInsertQuery = `INSERT INTO data (name, email, password) VALUES (:name,:email,:password);`
       await executeQuery(mentorInsertQuery, QueryTypes.INSERT, {
-        ...user,
+        ...user
       });
       return user;
-  
     } catch (error) {
       logger.error(`ERROR occurred in ${TAG}.saveUser()`, error);
       throw error;
